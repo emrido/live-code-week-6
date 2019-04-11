@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Classic Fox - First Live Code</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <template v-if="!isLoggedIn">
+
+            <template v-if="showRegisterForm">
+
+                <div class="container my-4">
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <div class="card mb-4">
+                                <div class="card-header text-center">Register</div>
+                                <div class="card-body">
+                                    <form method="post" @submit.prevent="register">
+                                        <div class="form-group">
+                                            <label for="email">Email address</label>
+                                            <input type="email" class="form-control" id="email"
+                                                aria-describedby="emailHelp" placeholder="Enter email" v-model="registerEmail">
+                                            <small id="emailHelp" class="form-text text-muted">
+                                                We'll never share your email with anyone else.
+                                            </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" id="password"
+                                                placeholder="Password" v-model="registerPassword">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                    <br>
+                                    <p>Already have account? <a href="" @click.prevent="showRegisterForm = !showRegisterForm">Log in here</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </template>
+
+            <template v-else>
+
+                <div class="container my-4">
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <div class="card mb-4">
+                                <div class="card-header text-center">Login</div>
+                                <div class="card-body">
+                                    <form method="post" @submit.prevent="login">
+                                        <div class="form-group">
+                                            <label for="email">Email address</label>
+                                            <input type="email" class="form-control" id="email"
+                                                aria-describedby="emailHelp" placeholder="Enter email" v-model="loginEmail">
+                                            <small id="emailHelp" class="form-text text-muted">
+                                                We'll never share your email with anyone else.
+                                            </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" id="password"
+                                                placeholder="Password" v-model="loginPassword">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                    <br>
+                                    <p>Don't have account? <a href="" @click.prevent="showRegisterForm = !showRegisterForm">Create new account</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </template>
+
+
+        </template>
+
+        <template v-else>
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <a class="navbar-brand" href="/">Dad Jokes</a>
+                    <a href="#" class="text-danger" @click="logout">Logout</a>
+                </div>
+            </nav>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-4">{{ joke }}</h1>
+                    <hr class="my-4">
+                    <p>Do you like this joke?</p>
+                    <a class="btn btn-success" href="#" role="button" @click.prevent="saveJoke">Yes, add this to My Favorites</a>
+                    <a class="btn btn-danger" href="#" role="button" @click.prevent="getJoke">No, generate new joke</a>
+                </div>
+            </div>
+            <div class="container">
+                <h1 class="text-center">My Favorites</h1>
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-lg-4 mb-4" v-for="(joke, i) in favoritJokes">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text">{{ joke.joke }}</p>
+                                <a href="#" class="card-link text-danger" @click="deleteJoke(i)">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>
